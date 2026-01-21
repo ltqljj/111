@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>李津槿小宝宝 ❤️ 道歉和解专属页面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f0f5 0%, #fef7fb 50%, #f0f8fb 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* 吉伊背景元素 */
+        .chikawa-kii {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background-image: url('https://p3-passport.byteimg.com/img/user-avatar/08999999999999999999999999999999~300x300.image'); /* 替换为吉伊图片地址 */
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: 1;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            opacity: 0.8;
+        }
+
+        /* 爱心背景动画 */
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff6b9e;
+            transform: rotate(45deg);
+            opacity: 0.7;
+            animation: float 8s infinite ease-in-out;
+            z-index: 1;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff6b9e;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: -10px;
+        }
+
+        @keyframes float {
+            0% {
+                transform: rotate(45deg) translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: rotate(45deg) translateY(-50px) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        /* 主容器 */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(255, 107, 158, 0.15);
+            text-align: center;
+        }
+
+        /* 标题样式 */
+        h1 {
+            color: #ff6b9e;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(255, 107, 158, 0.1);
+        }
+
+        /* 副标题 */
+        .subtitle {
+            color: #ff94b8;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            font-weight: normal;
+        }
+
+        /* 标签页样式 */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+            border-bottom: 2px solid #ffe0e9;
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            background: #fff0f6;
+            color: #e64980;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: #ff6b9e;
+            color: white;
+        }
+
+        .tab-btn:hover {
+            background: #ffe8f0;
+        }
+
+        .tab-btn.active:hover {
+            background: #e64980;
+        }
+
+        /* 内容面板 */
+        .tab-panel {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        /* 闯关模块 */
+        .level-container {
+            margin: 20px 0;
+            padding: 20px;
+            background: #fff5f8;
+            border-radius: 15px;
+            border: 2px solid #ffe0e9;
+        }
+
+        .level-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .level-title {
+            font-size: 1.2rem;
+            color: #e64980;
+            font-weight: bold;
+        }
+
+        .level-progress {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .question-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            color: #334155;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .option-btn {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover {
+            background: #f1f5f9;
+        }
+
+        .option-btn.correct {
+            background: #dcfce7;
+            border-color: #86efac;
+            color: #16a34a;
+        }
+
+        .option-btn.wrong {
+            background: #fee2e2;
+            border-color: #fca5a5;
+            color: #dc2626;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .action-btn {
+            background: #ff6b9e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: #e64980;
+            transform: translateY(-2px);
+        }
+
+        .action-btn.secondary {
+            background: #94a3b8;
+        }
+
+        .action-btn.secondary:hover {
+            background: #64748b;
+        }
+
+        /* 惩罚/奖励提示 */
+        .feedback-box {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            display: none;
+            animation: bounceIn 0.5s ease;
+        }
+
+        .feedback-box.punish {
+            background: #fee2e2;
+            border: 1px solid #fca5a5;
+            color: #dc2626;
+            display: block;
+        }
+
+        .feedback-box.reward {
+            background: #dcfce7;
+            border: 1px solid #86efac;
+            color: #16a34a;
+            display: block;
+        }
+
+        /* 女友操控面板 */
+        .control-panel {
+            background: #f0f7ff;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 2px solid #dbeafe;
+        }
+
+        .control-item {
+            margin: 15px 0;
+            text-align: left;
+        }
+
+        .control-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #334155;
+            font-weight: 500;
+        }
+
+        .control-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        textarea.control-input {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* 功能模块样式 */
+        .feature-card {
+            background: #fff0f6;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(255, 107, 158, 0.1);
+        }
+
+        .feature-title {
+            color: #e64980;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .feature-content {
+            text-align: left;
+            line-height: 1.6;
+            color: #334155;
+        }
+
+        /* 表情包/文案生成区 */
+        .generator-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .meme-item {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .meme-item:hover {
+            border-color: #ff6b9e;
+            transform: scale(1.05);
+        }
+
+        .meme-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 福利卡样式 */
+        .reward-card {
+            background: linear-gradient(135deg, #fef08a, #fde047);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px auto;
+            max-width: 500px;
+            box-shadow: 0 8px 20px rgba(251, 191, 36, 0.2);
+            position: relative;
+            display: none;
+        }
+
+        .reward-card.show {
+            display: block;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .reward-title {
+            font-size: 1.5rem;
+            color: #92400e;
+            margin-bottom: 15px;
+        }
+
+        .reward-list {
+            text-align: left;
+            margin: 15px 0;
+            color: #78350f;
+        }
+
+        .reward-list li {
+            margin: 8px 0;
+            list-style: none;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .reward-list li::before {
+            content: '❤️';
+            position: absolute;
+            left: 0;
+        }
+
+        .signature {
+            margin-top: 30px;
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        /* 动画定义 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            70% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 15px auto;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .level-container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 吉伊元素容器 -->
+    <div id="chikawaContainer"></div>
+
+    <div class="container">
+        <h1>李津槿小宝宝 ❤️ 专属道歉和解页面</h1>
+        <p class="subtitle">宝宝我错啦，原谅我好不好～</p>
+
+        <!-- 标签页 -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="apology-game">道歉闯关</button>
+            <button class="tab-btn" data-tab="gf-control">女友专属操控</button>
+            <button class="tab-btn" data-tab="sincerity-test">诚意测试</button>
+            <button class="tab-btn" data-tab="tools">道歉工具库</button>
+        </div>
+
+        <!-- 道歉闯关面板 -->
+        <div class="tab-panel active" id="apology-game">
+            <div class="level-container">
+                <div class="level-header">
+                    <div class="level-title">道歉闯关 - 第<span id="currentLevel">1</span>关</div>
+                    <div class="level-progress">进度：<span id="progress">0/5</span> 题</div>
+                </div>
+
+                <div class="question-card" id="questionCard">
+                    <div class="question-text" id="questionText">
+                        问题1：李津槿小宝宝最喜欢吃的零食是什么？
+                    </div>
+                    <div class="options" id="optionsContainer">
+                        <button class="option-btn" data-answer="wrong">薯片</button>
+                        <button class="option-btn" data-answer="correct">草莓味的小蛋糕</button>
+                        <button class="option-btn" data-answer="wrong">辣条</button>
+                        <button class="option-btn" data-answer="wrong">巧克力</button>
+                    </div>
+                </div>
+
+                <div class="feedback-box" id="feedbackBox"></div>
+
+                <div class="btn-group">
+                    <button class="action-btn" id="nextBtn" style="display:none;">下一题</button>
+                    <button class="action-btn secondary" id="restartGameBtn">重新闯关</button>
+                </div>
+
+                <!-- 福利卡 -->
+                <div class="reward-card" id="rewardCard">
+                    <div class="reward-title">🎉 恭喜解锁李津槿小宝宝专属福利卡</div>
+                    <div class="reward-list">
+                        <li>福利1：专属抱抱一次 🫂</li>
+                        <li>福利2：想吃啥都给买 🛒</li>
+                        <li>福利3：一周内听宝宝的话 🎧</li>
+                        <li>福利4：专属陪玩时间 ⏰</li>
+                        <li>福利5：自定义福利一项 ✨</li>
+                    </div>
+                    <div class="btn-group">
+                        <button class="action-btn" id="saveRewardBtn">保存福利卡</button>
+                        <button class="action-btn secondary" id="closeRewardBtn">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 女友专属操控面板 -->
+        <div class="tab-panel" id="gf-control">
+            <div class="control-panel">
+                <h3 style="color:#4f46e5; margin-bottom:20px;">👑 李津槿小宝宝专属操控台</h3>
+                
+                <div class="control-item">
+                    <label class="control-label">自定义惩罚内容</label>
+                    <textarea class="control-input" id="customPunishInput" placeholder="比如：罚他给我洗一周袜子、罚他说100遍宝宝我错了..."></textarea>
+                </div>
+
+                <div class="control-item">
+                    <label class="control-label">自定义奖励内容</label>
+                    <textarea class="control-input" id="customRewardInput" placeholder="比如：奖励陪我看电影、奖励给我买奶茶..."></textarea>
+                </div>
+
+                <div class="control-item">
+                    <label class="control-label">添加专属问题</label>
+                    <input type="text" class="control-input" id="customQuestionInput" placeholder="输入你想考他的问题...">
+                    <input type="text" class="control-input" style="margin-top:8px;" id="customAnswerInput" placeholder="输入正确答案...">
+                </div>
+
+                <div class="btn-group">
+                    <button class="action-btn" id="saveCustomBtn">保存自定义内容</button>
+                    <button class="action-btn" id="approveApologyBtn">一键原谅他 😘</button>
+                    <button class="action-btn secondary" id="rejectApologyBtn">再考验考验 🤨</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 诚意测试面板 -->
+        <div class="tab-panel" id="sincerity-test">
+            <div class="feature-card">
+                <div class="feature-title">💖 手写情话表白</div>
+                <div class="feature-content">
+                    <textarea class="control-input" id="handWriteInput" placeholder="在这里写下你对李津槿小宝宝的道歉情话..."></textarea>
+                    <div class="btn-group" style="margin-top:15px;">
+                        <button class="action-btn" id="previewHandWriteBtn">预览手写效果</button>
+                        <button class="action-btn secondary" id="saveHandWriteBtn">保存情话</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-title">🎙️ 语音道歉</div>
+                <div class="feature-content">
+                    <button class="action-btn" id="recordVoiceBtn">开始录音道歉</button>
+                    <button class="action-btn secondary" id="playVoiceBtn" disabled>播放录音</button>
+                    <p style="margin-top:10px; color:#64748b; font-size:0.9rem;">录音最长1分钟，说出你最真诚的道歉吧～</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-title">🧠 专属问题测试</div>
+                <div class="feature-content">
+                    <div class="question-text">宝宝的生日是哪一天？</div>
+                    <input type="text" class="control-input" style="margin:10px 0;" placeholder="输入答案...">
+                    <div class="question-text" style="margin-top:15px;">宝宝最喜欢的颜色是？</div>
+                    <input type="text" class="control-input" style="margin:10px 0;" placeholder="输入答案...">
+                    <div class="btn-group">
+                        <button class="action-btn" id="submitTestBtn">提交答案</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 道歉工具库面板 -->
+        <div class="tab-panel" id="tools">
+            <div class="feature-card">
+                <div class="feature-title">😜 认错表情包生成</div>
+                <div class="feature-content">
+                    <div class="generator-box">
+                        <div class="meme-item"><img src="https://picsum.photos/200/200?random=1" alt="认错表情包"></div>
+                        <div class="meme-item"><img src="https://picsum.photos/200/200?random=2" alt="认错表情包"></div>
+                        <div class="meme-item"><img src="https://picsum.photos/200/200?random=3" alt="认错表情包"></div>
+                        <div class="meme-item"><img src="https://picsum.photos/200/200?random=4" alt="认错表情包"></div>
+                    </div>
+                    <button class="action-btn" id="generateMemeBtn">生成专属认错表情包</button>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-title">💬 道歉文案生成</div>
+                <div class="feature-content">
+                    <select class="control-input" id="apologyTypeSelect">
+                        <option value="">选择道歉风格</option>
+                        <option value="cute">可爱卖萌型</option>
+                        <option value="sincere">真诚走心型</option>
+                        <option value="funny">搞笑搞怪型</option>
+                    </select>
+                    <div class="btn-group" style="margin-top:15px;">
+                        <button class="action-btn" id="generateTextBtn">生成道歉文案</button>
+                    </div>
+                    <div style="margin-top:15px; padding:15px; background:#f8fafc; border-radius:8px;" id="apologyTextResult"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="signature">
+            永远爱你的人 敬上 ❤️
+        </div>
+    </div>
+
+    <!-- 音效元素 -->
+    <audio id="clickSound" src="https://assets.mixkit.co/sfx/preview/mixkit-quick-jump-arcade-game-239.mp3" preload="auto"></audio>
+    <audio id="correctSound" src="https://assets.mixkit.co/sfx/preview/mixkit-positive-interface-beep-221.mp3" preload="auto"></audio>
+    <audio id="wrongSound" src="https://assets.mixkit.co/sfx/preview/mixkit-negative-click-1104.mp3" preload="auto"></audio>
+    <audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3" preload="auto"></audio>
+
+    <script>
+        // 全局变量
+        let currentLevel = 1;
+        let correctAnswers = 0;
+        let totalQuestions = 5;
+        let customPunishments = [];
+        let customRewards = [];
+        let customQuestions = [];
+        
+        // 预设惩罚列表
+        const defaultPunishments = [
+            "罚你给我捏肩10分钟 🤏",
+            "罚你说50遍“李津槿小宝宝我错了” 🗣️",
+            "罚你给我洗三天碗 🧽",
+            "罚你陪我看我想看的剧 📺",
+            "罚你给我买奶茶喝 🥤"
+        ];
+        
+        // 预设奖励列表
+        const defaultRewards = [
+            "奖励摸头杀一次 ✨",
+            "奖励原谅你这一次 😘",
+            "奖励陪你打一局游戏 🎮",
+            "奖励给你一个抱抱 🫂",
+            "奖励不生气了 😊"
+        ];
+        
+        // 预设问题库
+        const questionBank = [
+            {
+                question: "李津槿小宝宝最喜欢吃的零食是什么？",
+                options: ["薯片", "草莓味的小蛋糕", "辣条", "巧克力"],
+                answer: 1
+            },
+            {
+                question: "李津槿小宝宝最喜欢的颜色是？",
+                options: ["黑色", "粉色", "蓝色", "绿色"],
+                answer: 1
+            },
+            {
+                question: "惹李津槿小宝宝生气了应该怎么做？",
+                options: ["讲道理", "哄她开心", "冷处理", "假装没发生"],
+                answer: 1
+            },
+            {
+                question: "李津槿小宝宝的口头禅是？",
+                options: ["烦死了", "宝宝饿了", "好吧好吧", "都可以"],
+                answer: 1
+            },
+            {
+                question: "最让李津槿小宝宝开心的事是？",
+                options: ["买买买", "吃好吃的", "被哄", "以上都是"],
+                answer: 3
+            }
+        ];
+
+        // DOM元素
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabPanels = document.querySelectorAll('.tab-panel');
+        const currentLevelEl = document.getElementById('currentLevel');
+        const progressEl = document.getElementById('progress');
+        const questionTextEl = document.getElementById('questionText');
+        const optionsContainerEl = document.getElementById('optionsContainer');
+        const feedbackBoxEl = document.getElementById('feedbackBox');
+        const nextBtnEl = document.getElementById('nextBtn');
+        const restartGameBtnEl = document.getElementById('restartGameBtn');
+        const rewardCardEl = document.getElementById('rewardCard');
+        const saveRewardBtnEl = document.getElementById('saveRewardBtn');
+        const closeRewardBtnEl = document.getElementById('closeRewardBtn');
+        const customPunishInputEl = document.getElementById('customPunishInput');
+        const customRewardInputEl = document.getElementById('customRewardInput');
+        const customQuestionInputEl = document.getElementById('customQuestionInput');
+        const customAnswerInputEl = document.getElementById('customAnswerInput');
+        const saveCustomBtnEl = document.getElementById('saveCustomBtn');
+        const approveApologyBtnEl = document.getElementById('approveApologyBtn');
+        const rejectApologyBtnEl = document.getElementById('rejectApologyBtn');
+        const handWriteInputEl = document.getElementById('handWriteInput');
+        const previewHandWriteBtnEl = document.getElementById('previewHandWriteBtn');
+        const saveHandWriteBtnEl = document.getElementById('saveHandWriteBtn');
+        const recordVoiceBtnEl = document.getElementById('recordVoiceBtn');
+        const playVoiceBtnEl = document.getElementById('playVoiceBtn');
+        const submitTestBtnEl = document.getElementById('submitTestBtn');
+        const generateMemeBtnEl = document.getElementById('generateMemeBtn');
+        const apologyTypeSelectEl = document.getElementById('apologyTypeSelect');
+        const generateTextBtnEl = document.getElementById('generateTextBtn');
+        const apologyTextResultEl = document.getElementById('apologyTextResult');
+        
+        // 音效元素
+        const clickSoundEl = document.getElementById('clickSound');
+        const correctSoundEl = document.getElementById('correctSound');
+        const wrongSoundEl = document.getElementById('wrongSound');
+        const successSoundEl = document.getElementById('successSound');
+
+        // 初始化吉伊元素
+        function initChikawa() {
+            const container = document.getElementById('chikawaContainer');
+            const kiiCount = 8; // 吉伊数量
+            
+            for (let i = 0; i < kiiCount; i++) {
+                const kii = document.createElement('div');
+                kii.classList.add('chikawa-kii');
+                
+                // 随机位置
+                kii.style.left = `${Math.random() * 90}vw`;
+                kii.style.top = `${Math.random() * 90}vh`;
+                
+                // 随机大小
+                const size = 60 + Math.random() * 40;
+                kii.style.width = `${size}px`;
+                kii.style.height = `${size}px`;
+                
+                // 随机旋转
+                kii.style.transform = `rotate(${Math.random() * 30 - 15}deg)`;
+                
+                // 点击事件
+                kii.addEventListener('click', () => {
+                    playSound(clickSoundEl);
+                    // 点击动画
+                    kii.style.transform = `rotate(${Math.random() * 30 - 15}deg) scale(1.2)`;
+                    setTimeout(() => {
+                        kii.style.transform = `rotate(${Math.random() * 30 - 15}deg) scale(1)`;
+                    }, 300);
+                });
+                
+                // 触摸滑动事件
+                kii.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                    playSound(clickSoundEl);
+                    kii.style.left = `${e.touches[0].clientX - size/2}px`;
+                    kii.style.top = `${e.touches[0].clientY - size/2}px`;
+                });
+                
+                container.appendChild(kii);
+            }
+        }
+
+        // 播放音效
+        function playSound(audioEl) {
+            audioEl.currentTime = 0;
+            audioEl.play().catch(e => console.log('音效播放失败:', e));
+        }
+
+        // 切换标签页
+        function switchTab(tabId) {
+            tabBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.tab === tabId);
+            });
+            
+            tabPanels.forEach(panel => {
+                panel.classList.toggle('active', panel.id === tabId);
+            });
+            playSound(clickSoundEl);
+        }
+
+        // 初始化题目
+        function initQuestion(level) {
+            const question = questionBank[level - 1];
+            questionTextEl.textContent = question.question;
+            
+            // 清空选项
+            optionsContainerEl.innerHTML = '';
+            
+            // 创建选项
+            question.options.forEach((option, index) => {
+                const optionBtn = document.createElement('button');
+                optionBtn.classList.add('option-btn');
+                optionBtn.textContent = option;
+                optionBtn.dataset.index = index;
+                
+                optionBtn.addEventListener('click', () => {
+                    checkAnswer(index, question.answer, optionBtn);
+                });
+                
+                optionsContainerEl.appendChild(optionBtn);
+            });
+            
+            // 重置反馈框
+            feedbackBoxEl.style.display = 'none';
+            nextBtnEl.style.display = 'none';
+        }
+
+        // 检查答案
+        function checkAnswer(selectedIndex, correctIndex, optionBtn) {
+            // 禁用所有选项
+            const allOptions = document.querySelectorAll('.option-btn');
+            allOptions.forEach(btn => {
+                btn.disabled = true;
+                const idx = parseInt(btn.dataset.index);
+                if (idx === correctIndex) {
+                    btn.classList.add('correct');
+                } else if (idx === selectedIndex && idx !== correctIndex) {
+                    btn.classList.add('wrong');
+                }
+            });
+            
+            // 正确答案
+            if (selectedIndex === correctIndex) {
+                playSound(correctSoundEl);
+                correctAnswers++;
+                feedbackBoxEl.className = 'feedback-box reward';
+                feedbackBoxEl.textContent = `🎉 回答正确！李津槿小宝宝给你点个赞～`;
+            } else {
+                playSound(wrongSoundEl);
+                feedbackBoxEl.className = 'feedback-box punish';
+                // 随机惩罚
+                const punishments = [...defaultPunishments, ...customPunishments];
+                const randomPunish = punishments[Math.floor(Math.random() * punishments.length)];
+                feedbackBoxEl.textContent = `❌ 回答错误！惩罚：${randomPunish}`;
+            }
+            
+            feedbackBoxEl.style.display = 'block';
+            progressEl.textContent = `${correctAnswers}/${totalQuestions} 题`;
+            
+            // 显示下一题按钮（最后一题除外）
+            if (currentLevel < totalQuestions) {
+                nextBtnEl.style.display = 'block';
+            } else {
+                // 最后一题，判断是否通关
+                setTimeout(() => {
+                    if (correctAnswers >= 4) { // 80%正确率通关
+                        playSound(successSoundEl);
+                        rewardCardEl.classList.add('show');
+                    } else {
+                        feedbackBoxEl.textContent = `😥 闯关失败！再哄哄李津槿小宝宝吧～`;
+                    }
+                }, 1000);
+            }
+        }
+
+        // 下一题
+        function nextQuestion() {
+            currentLevel++;
+            currentLevelEl.textContent = currentLevel;
+            initQuestion(currentLevel);
+            playSound(clickSoundEl);
+        }
+
+        // 重置游戏
+        function restartGame() {
+            currentLevel = 1;
+            correctAnswers = 0;
+            currentLevelEl.textContent = currentLevel;
+            progressEl.textContent = `0/${totalQuestions} 题`;
+            rewardCardEl.classList.remove('show');
+            initQuestion(currentLevel);
+            playSound(clickSoundEl);
+        }
+
+        // 保存自定义内容
+        function saveCustomContent() {
+            const punishText = customPunishInputEl.value.trim();
+            const rewardText = customRewardInputEl.value.trim();
+            const questionText = customQuestionInputEl.value.trim();
+            const answerText = customAnswerInputEl.value.trim();
+            
+            if (punishText) {
+                customPunishments.push(punishText);
+                customPunishInputEl.value = '';
+            }
+            
+            if (rewardText) {
+                customRewards.push(rewardText);
+                customRewardInputEl.value = '';
+            }
+            
+            if (questionText && answerText) {
+                customQuestions.push({
+                    question: questionText,
+                    answer: answerText
+                });
+                customQuestionInputEl.value = '';
+                customAnswerInputEl.value = '';
+            }
+            
+            alert('✅ 自定义内容保存成功！');
+            playSound(correctSoundEl);
+        }
+
+        // 生成道歉文案
+        function generateApologyText(type) {
+            const cuteTexts = [
+                "🥺 李津槿小宝宝我错啦，原谅我好不好嘛～",
+                "😘 宝宝我错了，我不该惹你生气，给你亲亲～",
+                "🙏 我的错我的错，宝宝想怎么罚我都可以～"
+            ];
+            
+            const sincereTexts = [
+                "❤️ 对不起宝宝，我认真反思了自己的错误，以后不会再惹你生气了。",
+                "💖 李津槿小宝宝，我知道让你不开心了，我会用行动证明我的歉意。",
+                "💝 原谅我这一次，我会加倍对你好，不让你受一点委屈。"
+            ];
+            
+            const funnyTexts = [
+                "🤪 我错了我错了，宝宝大人有大量，饶了小的这一次吧！",
+                "🎭 认罪认罚，听候宝宝发落，保证绝不上诉！",
+                "🎪 给宝宝表演一个当场认错，求求你别生气了～"
+            ];
+            
+            let texts = [];
+            switch(type) {
+                case 'cute': texts = cuteTexts; break;
+                case 'sincere': texts = sincereTexts; break;
+                case 'funny': texts = funnyTexts; break;
+                default: texts = [...cuteTexts, ...sincereTexts, ...funnyTexts];
+            }
+            
+            const randomText = texts[Math.floor(Math.random() * texts.length)];
+            apologyTextResultEl.textContent = randomText;
+            playSound(correctSoundEl);
+        }
+
+        // 保存福利卡
+        function saveRewardCard() {
+            alert('🎁 福利卡已保存！快去兑现你的承诺吧～');
+            playSound(successSoundEl);
+        }
+
+        // 事件绑定
+        function bindEvents() {
+            // 标签页切换
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+            });
+            
+            // 题目相关
+            nextBtnEl.addEventListener('click', nextQuestion);
+            restartGameBtnEl.addEventListener('click', restartGame);
+            
+            // 福利卡相关
+            saveRewardBtnEl.addEventListener('click', saveRewardCard);
+            closeRewardBtnEl.addEventListener('click', () => {
+                rewardCardEl.classList.remove('show');
+                playSound(clickSoundEl);
+            });
+            
+            // 女友操控相关
+            saveCustomBtnEl.addEventListener('click', saveCustomContent);
+            approveApologyBtnEl.addEventListener('click', () => {
+                alert('🥰 李津槿小宝宝原谅你啦！快去抱抱她吧～');
+                playSound(successSoundEl);
+            });
+            rejectApologyBtnEl.addEventListener('click', () => {
+                alert('😜 想的美！再去好好反省一下～');
+                playSound(wrongSoundEl);
+            });
+            
+            // 诚意测试相关
+            previewHandWriteBtnEl.addEventListener('click', () => {
+                alert(`✍️ 手写情话预览：${handWriteInputEl.value || '还没写情话哦～'}`);
+                playSound(clickSoundEl);
+            });
+            saveHandWriteBtnEl.addEventListener('click', () => {
+                alert('💌 手写情话已保存！可以发给李津槿小宝宝啦～');
+                playSound(correctSoundEl);
+            });
+            
+            // 录音相关
+            recordVoiceBtnEl.addEventListener('click', () => {
+                if (recordVoiceBtnEl.textContent === '开始录音道歉') {
+                    recordVoiceBtnEl.textContent = '停止录音';
+                    playVoiceBtnEl.disabled = true;
+                    alert('🎙️ 开始录音啦，说出你最真诚的道歉吧！');
+                    playSound(clickSoundEl);
+                } else {
+                    recordVoiceBtnEl.textContent = '开始录音道歉';
+                    playVoiceBtnEl.disabled = false;
+                    alert('🎤 录音完成！可以播放听听啦～');
+                    playSound(correctSoundEl);
+                }
+            });
+            playVoiceBtnEl.addEventListener('click', () => {
+                alert('🔊 播放录音中...（模拟播放）');
+                playSound(clickSoundEl);
+            });
+            
+            submitTestBtnEl.addEventListener('click', () => {
+                alert('📝 答案已提交！等待李津槿小宝宝批改～');
+                playSound(clickSoundEl);
+            });
+            
+            // 工具库相关
+            generateMemeBtnEl.addEventListener('click', () => {
+                alert('😂 专属认错表情包生成成功！快去发给李津槿小宝宝～');
+                playSound(correctSoundEl);
+            });
+            
+            generateTextBtnEl.addEventListener('click', () => {
+                generateApologyText(apologyTypeSelectEl.value);
+            });
+        }
+
+        // 初始化
+        function init() {
+            initChikawa();
+            bindEvents();
+            initQuestion(currentLevel);
+            // 生成爱心背景（保留原有功能）
+            function createHearts() {
+                const heartCount = 15;
+                for (let i = 0; i < heartCount; i++) {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    heart.style.left = `${Math.random() * 100}vw`;
+                    heart.style.animationDelay = `${Math.random() * 8}s`;
+                    heart.style.animationDuration = `${8 + Math.random() * 4}s`;
+                    const size = 10 + Math.random() * 15;
+                    heart.style.width = `${size}px`;
+                    heart.style.height = `${size}px`;
+                    document.body.appendChild(heart);
+                    setTimeout(() => heart.remove(), 10000);
+                }
+            }
+            setInterval(createHearts, 3000);
+            createHearts();
+        }
+
+        // 启动应用
+        init();
+    </script>
+</body>
+</html>
